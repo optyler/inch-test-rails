@@ -3,7 +3,7 @@ require "awesome_print"
 
 module Utils
 
-  def self.import_generic(import_class, csv_file)
+  def self.dispatch_csv_data(import_class, csv_file)
 
     known_references = import_class.pluck(:reference)
 
@@ -17,12 +17,18 @@ module Utils
         to_insert << row.to_hash
       end
     end
+    { csv_insert: to_insert, csv_update: to_update }
+  end
+
+  def self.import_generic(import_class, csv_file)
+
+    dispatched = self.dispatch_csv_data(import_class, csv_file)
 
     # if references not already in database, create them all at once
-    import_class.create(to_insert)
+    import_class.create(dispatched[:csv_insert])
 
     # for those that have already a reference, go ahead
-    self.update_generic(import_class, to_update)
+    self.update_generic(import_class, dispatched[:csv_update])
   end
 
   def self.update_generic(import_class, to_update=[])
