@@ -1,25 +1,24 @@
-# README
+# general information
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Default configuration 
 
-Things you may want to cover:
+*  by default, files will be searched in `/ftp` folder
+*  by default, the client task will look for a file named `person.csv` in the ftp folder
+*  by default, the buildings task will look for a file named `buildings.csv` in the ftp folder
+	
+## Customize imports 
 
-* Ruby version
+* You can change the folder or the csv filenames configuration by changing environment variable located in `/config/environment.rb`
 
-* System dependencies
+## Launch import tasks
+Go to your root application folder then launch one of these tasks
 
-* Configuration
+*  `rake importcsv:all` to import all kind of files
+*  `rake importcsv:person` to import only persons
+*  `rake importcsv:buildings` to import only buildings
 
-* Database creation
+# TODO
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-		
+* tests
+* optimisation
+* doc
